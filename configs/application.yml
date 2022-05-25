@@ -1,0 +1,28 @@
+
+server:
+  host: 127.0.0.1
+  port: 8000
+
+
+application:
+  name: goboot
+  profile: dev
+
+swagger:
+  enabled: true
+logging:
+  level: debug
+  dir: logs
+  maxSize: 500
+  maxBackups: 24
+  maxAge: 7
+
+mysql:
+  maxActive: 500
+  maxWait: 60000
+  driverName: "mysql"
+  addr: "127.0.0.1"
+  database: "jingwei-exchange"
+  user: "root"
+  password: "root"
+  charset: "utf8mb4"
