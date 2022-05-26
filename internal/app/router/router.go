@@ -20,9 +20,11 @@ func Router(profile string) *gin.Engine {
 		gin.DisableConsoleColor()
 	} else {
 		pprof.Register(r)
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
-	skipPaths := []string{"/swagger"}
+	skipPaths := []string{"/swagger/*", "/debug/*"}
+
 	r.Use(middleware.AccessLogger(skipPaths))
 	r.Use(middleware.ResponseLogger(skipPaths))
 	r.Use(gin.Recovery())
@@ -44,9 +46,6 @@ func Router(profile string) *gin.Engine {
 	//	apiV1.POST("/account/withdraw", controller.Withdraw)
 	//	apiV1.POST("/account/transfer", controller.Transfer)
 	//}
-
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	//r.Use(gin.LoggerWithConfig(gin.LoggerConfig{SkipPaths: []string{"/metrics", "/swagger/*"}}))
 
 	r.GET("/ping", func(c *gin.Context) {
 		logger.Info(c.Request.Context(), "ping")
