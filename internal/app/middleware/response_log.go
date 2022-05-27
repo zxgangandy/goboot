@@ -45,7 +45,7 @@ func ResponseLogger(config *logger.Config) gin.HandlerFunc {
 		cost := time.Since(start)
 		responseBody := blw.body.String()
 		if config.Desensitize {
-			responseBody = utils.MaskJsonStr(&responseBody, config.SkipKeys)
+			responseBody = utils.MaskJsonStr(&responseBody, config.SkipFields)
 		}
 
 		logger.Info(c.Request.Context(), "ResponseLog",

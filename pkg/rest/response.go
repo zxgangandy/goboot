@@ -18,7 +18,7 @@ type Response struct {
 	Message string      `json:"message"`
 	Data    interface{} `json:"data"`
 	Details []string    `json:"details"`
-	TraceID string      `json:"trace_id"`
+	TraceID string      `json:"traceId"`
 }
 
 func NewResponse() *Response {

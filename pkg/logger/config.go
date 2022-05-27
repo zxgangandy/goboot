@@ -9,5 +9,5 @@ type Config struct {
 
 	SkipPaths   []string `mapstructure:"skipPaths"`
 	Desensitize bool     `mapstructure:"desensitize"`
-	SkipKeys    []string `mapstructure:"skipKeys"`
+	SkipFields  []string `mapstructure:"skipFields"`
 }

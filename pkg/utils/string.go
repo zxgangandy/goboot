@@ -54,7 +54,7 @@ func MapToJson(m *map[string]interface{}) (string, error) {
 	return string(jsonByte), nil
 }
 
-func MaskJsonStr(jsonStr *string, keys []string) string {
+func MaskJsonStr(jsonStr *string, fieldNames []string) string {
 	if !json.Valid([]byte(*jsonStr)) {
 		return *jsonStr
 	}
@@ -64,7 +64,7 @@ func MaskJsonStr(jsonStr *string, keys []string) string {
 		return *jsonStr
 	}
 
-	for _, key := range keys {
+	for _, key := range fieldNames {
 		MaskJsonMap(jm, key)
 	}
 
@@ -77,7 +77,7 @@ func MaskJsonStr(jsonStr *string, keys []string) string {
 }
 
 // mask struct object then return string
-func MaskStruct(src interface{}, keys []string) string {
+func MaskStruct(src interface{}, fieldNames []string) string {
 	jsonBytes, err := json.Marshal(src)
 	if err != nil {
 		return ""
@@ -89,7 +89,7 @@ func MaskStruct(src interface{}, keys []string) string {
 		return jsonStr
 	}
 
-	for _, key := range keys {
+	for _, key := range fieldNames {
 		MaskJsonMap(jm, key)
 	}
 
@@ -104,12 +104,13 @@ func MaskStruct(src interface{}, keys []string) string {
 func MaskJsonMap(jm map[string]interface{}, key string) {
 	for k, v := range jm {
 		switch vv := v.(type) {
-		case bool, string, float64, int, []interface{}, nil:
+		case bool, string, float64, int, []interface{}:
 			if k == key || strings.Contains(k, key) {
 				jm[k] = nil
 			}
 		case map[string]interface{}:
 			MaskJsonMap(vv, key)
+		case nil:
 		default:
 		}
 	}

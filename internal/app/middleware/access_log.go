@@ -37,7 +37,7 @@ func AccessLogger(config *logger.Config) gin.HandlerFunc {
 
 		request := string(bodyBytes)
 		if config.Desensitize {
-			request = utils.MaskJsonStr(&request, config.SkipKeys)
+			request = utils.MaskJsonStr(&request, config.SkipFields)
 		}
 
 		logger.Info(ctx, "AccessLog",

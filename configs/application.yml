@@ -18,7 +18,7 @@ logging:
   maxAge: 7
   skipPaths: ["/swagger/*", "/debug/*"]
   desensitize: false
-  skipKeys: ["token"]
+  skipFields: ["token"]
 
 mysql:
   maxActive: 500
