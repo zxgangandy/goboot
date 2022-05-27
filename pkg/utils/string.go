@@ -76,6 +76,31 @@ func MaskJsonStr(jsonStr *string, keys []string) string {
 	return maskedJson
 }
 
+// mask struct object then return string
+func MaskStruct(src interface{}, keys []string) string {
+	jsonBytes, err := json.Marshal(src)
+	if err != nil {
+		return ""
+	}
+
+	jsonStr := string(jsonBytes)
+	jm, err := JsonToMap(&jsonStr)
+	if err != nil {
+		return jsonStr
+	}
+
+	for _, key := range keys {
+		MaskJsonMap(jm, key)
+	}
+
+	maskedJson, err := MapToJson(&jm)
+	if err != nil {
+		return jsonStr
+	}
+
+	return maskedJson
+}
+
 func MaskJsonMap(jm map[string]interface{}, key string) {
 	for k, v := range jm {
 		switch vv := v.(type) {

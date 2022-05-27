@@ -3,8 +3,8 @@ Inspired by springboot framework, making it easy to create web application with 
 
 
 ## design
-- keep simple, easy to use
-- keep high performance（try to not use reflection）
-- trace every http request and response from controller to service and to dao by trace id
-- support log files classified to default.log and error.log
-- support log desensitization in global http request and response
+- simple, easy to use
+- high performance（try to not use reflection）
+- trace every http request and response in controller, service and dao by trace id
+- log files classified to default.log and error.log
+- log desensitization
