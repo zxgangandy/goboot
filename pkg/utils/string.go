@@ -65,7 +65,7 @@ func MaskJsonStr(jsonStr *string, fieldNames []string) string {
 	}
 
 	for _, key := range fieldNames {
-		MaskJsonMap(jm, key)
+		MaskField(jm, key)
 	}
 
 	maskedJson, err := MapToJson(&jm)
@@ -90,7 +90,7 @@ func MaskStruct(src interface{}, fieldNames []string) string {
 	}
 
 	for _, key := range fieldNames {
-		MaskJsonMap(jm, key)
+		MaskField(jm, key)
 	}
 
 	maskedJson, err := MapToJson(&jm)
@@ -101,15 +101,15 @@ func MaskStruct(src interface{}, fieldNames []string) string {
 	return maskedJson
 }
 
-func MaskJsonMap(jm map[string]interface{}, key string) {
+func MaskField(jm map[string]interface{}, field string) {
 	for k, v := range jm {
 		switch vv := v.(type) {
 		case bool, string, float64, int, []interface{}:
-			if k == key || strings.Contains(k, key) {
+			if k == field || strings.Contains(k, field) {
 				jm[k] = nil
 			}
 		case map[string]interface{}:
-			MaskJsonMap(vv, key)
+			MaskField(vv, field)
 		case nil:
 		default:
 		}
