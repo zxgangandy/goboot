@@ -12,7 +12,6 @@ import (
 )
 
 func Router(profile string, logging *logger.Config) *gin.Engine {
-
 	var r = gin.New()
 
 	if profile == utils.ProdProfile {
@@ -26,24 +25,6 @@ func Router(profile string, logging *logger.Config) *gin.Engine {
 	r.Use(middleware.AccessLogger(logging))
 	r.Use(middleware.ResponseLogger(logging))
 	r.Use(gin.Recovery())
-
-	//apiV1 := r.Group("/v1")
-	//apiV1.Use()
-
-	//{
-	//	// 认证相关路由
-	//	apiV1.POST("/account/create_one", controller.CreateAccount)
-	//	apiV1.POST("/account/create_list", controller.CreateAccounts)
-	//	apiV1.POST("/account/exist_list", controller.GetExistsAccounts)
-	//	apiV1.POST("/account/find_one", controller.FindAccount)
-	//	apiV1.POST("/account/find_list", controller.FindAccounts)
-	//	apiV1.POST("/account/has_balance", controller.HasBalance)
-	//	apiV1.POST("/account/freeze", controller.Freeze)
-	//	apiV1.POST("/account/unfreeze", controller.Unfreeze)
-	//	apiV1.POST("/account/deposit", controller.Deposit)
-	//	apiV1.POST("/account/withdraw", controller.Withdraw)
-	//	apiV1.POST("/account/transfer", controller.Transfer)
-	//}
 
 	r.GET("/ping", func(c *gin.Context) {
 		logger.Info(c.Request.Context(), "ping")
