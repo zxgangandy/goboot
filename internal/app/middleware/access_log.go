@@ -44,7 +44,7 @@ func AccessLogger(config *logger.Config) gin.HandlerFunc {
 			zap.String("Method", c.Request.Method),
 			zap.String("IP", c.ClientIP()),
 			zap.String("Path", path),
-			zap.Any("Headers", c.Request.Header),
+			zap.Any("Header", c.Request.Header),
 			zap.String("Query", c.Request.URL.RawQuery),
 			zap.String("UserAgent", c.Request.UserAgent()),
 			zap.String("Request", request),
