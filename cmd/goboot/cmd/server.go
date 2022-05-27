@@ -40,7 +40,7 @@ var serverCmd = &cobra.Command{
 		logger.Infof(ctx, "Server: listening on: %s", addr)
 		srv := &http.Server{
 			Addr:         addr,
-			Handler:      router.Router(profile),
+			Handler:      router.Router(profile, &logging),
 			ReadTimeout:  10 * time.Second,
 			WriteTimeout: 30 * time.Second,
 			IdleTimeout:  30 * time.Second,
@@ -50,7 +50,7 @@ var serverCmd = &cobra.Command{
 		// it won't block the graceful shutdown handling below
 		go func() {
 			if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-				//booted.Logger.Fatalf("listen: %s", err)
+				logger.Fatalf(ctx, "listen: %s", err)
 			}
 		}()
 

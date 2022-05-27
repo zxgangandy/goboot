@@ -16,6 +16,9 @@ logging:
   maxSize: 500
   maxBackups: 24
   maxAge: 7
+  skipPaths: ["/swagger/*", "/debug/*"]
+  desensitize: false
+  skipKeys: ["token"]
 
 mysql:
   maxActive: 500

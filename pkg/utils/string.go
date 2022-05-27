@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"math/rand"
+	"strings"
 	"time"
 	"unsafe"
 )
@@ -33,9 +34,9 @@ func RandomString(n int) string {
 }
 
 // Convert json string to map
-func JsonToMap(jsonStr string) (map[string]interface{}, error) {
+func JsonToMap(jsonStr *string) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	err := json.Unmarshal([]byte(jsonStr), &m)
+	err := json.Unmarshal([]byte(*jsonStr), &m)
 	if err != nil {
 		return nil, err
 	}
@@ -44,11 +45,47 @@ func JsonToMap(jsonStr string) (map[string]interface{}, error) {
 }
 
 // Convert map json string
-func MapToJson(m map[string]interface{}) (string, error) {
+func MapToJson(m *map[string]interface{}) (string, error) {
 	jsonByte, err := json.Marshal(m)
 	if err != nil {
 		return "", err
 	}
 
 	return string(jsonByte), nil
+}
+
+func MaskJsonStr(jsonStr *string, keys []string) string {
+	if !json.Valid([]byte(*jsonStr)) {
+		return *jsonStr
+	}
+
+	jm, err := JsonToMap(jsonStr)
+	if err != nil {
+		return *jsonStr
+	}
+
+	for _, key := range keys {
+		MaskJsonMap(jm, key)
+	}
+
+	maskedJson, err := MapToJson(&jm)
+	if err != nil {
+		return *jsonStr
+	}
+
+	return maskedJson
+}
+
+func MaskJsonMap(jm map[string]interface{}, key string) {
+	for k, v := range jm {
+		switch vv := v.(type) {
+		case bool, string, float64, int, []interface{}, nil:
+			if k == key || strings.Contains(k, key) {
+				jm[k] = nil
+			}
+		case map[string]interface{}:
+			MaskJsonMap(vv, key)
+		default:
+		}
+	}
 }

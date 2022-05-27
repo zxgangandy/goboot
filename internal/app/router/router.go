@@ -11,7 +11,7 @@ import (
 	"goboot/pkg/utils"
 )
 
-func Router(profile string) *gin.Engine {
+func Router(profile string, logging *logger.Config) *gin.Engine {
 
 	var r = gin.New()
 
@@ -23,10 +23,8 @@ func Router(profile string) *gin.Engine {
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
-	skipPaths := []string{"/swagger/*", "/debug/*"}
-
-	r.Use(middleware.AccessLogger(skipPaths))
-	r.Use(middleware.ResponseLogger(skipPaths))
+	r.Use(middleware.AccessLogger(logging))
+	r.Use(middleware.ResponseLogger(logging))
 	r.Use(gin.Recovery())
 
 	//apiV1 := r.Group("/v1")

@@ -6,4 +6,8 @@ type Config struct {
 	MaxSize    int    `mapstructure:"maxSize"`
 	MaxBackups int    `mapstructure:"maxBackups"`
 	MaxAge     int    `mapstructure:"maxAge"`
+
+	SkipPaths   []string `mapstructure:"skipPaths"`
+	Desensitize bool     `mapstructure:"desensitize"`
+	SkipKeys    []string `mapstructure:"skipKeys"`
 }

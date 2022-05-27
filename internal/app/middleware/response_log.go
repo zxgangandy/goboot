@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"goboot/pkg/logger"
+	"goboot/pkg/utils"
 	"regexp"
 	"time"
 )
@@ -24,10 +25,10 @@ func (w bodyLogWriter) WriteString(s string) (int, error) {
 	return w.ResponseWriter.WriteString(s)
 }
 
-func ResponseLogger(skipPaths []string) gin.HandlerFunc {
+func ResponseLogger(config *logger.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.Path
-
+		skipPaths := config.SkipPaths
 		for _, skipPath := range skipPaths {
 			reg := regexp.MustCompile(skipPath)
 			if reg.MatchString(path) {
@@ -43,6 +44,10 @@ func ResponseLogger(skipPaths []string) gin.HandlerFunc {
 
 		cost := time.Since(start)
 		responseBody := blw.body.String()
+		if config.Desensitize {
+			responseBody = utils.MaskJsonStr(&responseBody, config.SkipKeys)
+		}
+
 		logger.Info(c.Request.Context(), "ResponseLog",
 			zap.Int("Status", c.Writer.Status()),
 			zap.String("Path", path),

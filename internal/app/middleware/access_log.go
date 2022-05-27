@@ -13,10 +13,10 @@ import (
 
 const traceLen = 10
 
-func AccessLogger(skipPaths []string) gin.HandlerFunc {
+func AccessLogger(config *logger.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.Path
-
+		skipPaths := config.SkipPaths
 		for _, skipPath := range skipPaths {
 			reg := regexp.MustCompile(skipPath)
 			if reg.MatchString(path) {
@@ -35,13 +35,18 @@ func AccessLogger(skipPaths []string) gin.HandlerFunc {
 		}
 		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 
+		request := string(bodyBytes)
+		if config.Desensitize {
+			request = utils.MaskJsonStr(&request, config.SkipKeys)
+		}
+
 		logger.Info(ctx, "AccessLog",
 			zap.String("Method", c.Request.Method),
 			zap.String("IP", c.ClientIP()),
 			zap.String("Path", path),
 			zap.String("Query", c.Request.URL.RawQuery),
 			zap.String("UserAgent", c.Request.UserAgent()),
-			zap.String("Request", string(bodyBytes)),
+			zap.String("Request", request),
 		)
 		c.Next()
 	}
