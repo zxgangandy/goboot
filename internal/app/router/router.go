@@ -32,6 +32,7 @@ func Router(profile string, logging *logger.Config) *gin.Engine {
 
 	{
 		apiV1.POST("/user/get_one", controller.GetUser)
+		apiV1.POST("/student/get_one", controller.GetStudent)
 	}
 
 	r.GET("/ping", func(c *gin.Context) {

@@ -7,12 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
-var User = New()
+var User = NewUserDao()
 
 type UserDao struct {
 }
 
-func New() *UserDao {
+func NewUserDao() *UserDao {
 	return &UserDao{}
 }
 
