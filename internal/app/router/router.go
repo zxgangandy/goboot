@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"goboot/internal/app/controller"
 	"goboot/internal/app/middleware"
 	"goboot/pkg/logger"
 	"goboot/pkg/rest"
@@ -25,6 +26,13 @@ func Router(profile string, logging *logger.Config) *gin.Engine {
 	r.Use(middleware.AccessLogger(logging))
 	r.Use(middleware.ResponseLogger(logging))
 	r.Use(gin.Recovery())
+
+	apiV1 := r.Group("/v1")
+	apiV1.Use()
+
+	{
+		apiV1.POST("/user/get_one", controller.GetUser)
+	}
 
 	r.GET("/ping", func(c *gin.Context) {
 		logger.Info(c.Request.Context(), "ping")

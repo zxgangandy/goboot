@@ -25,7 +25,7 @@ mysql:
   maxWait: 60000
   driverName: "mysql"
   addr: "127.0.0.1"
-  database: "jingwei-exchange"
+  database: "test"
   user: "root"
   password: "root"
   charset: "utf8mb4"

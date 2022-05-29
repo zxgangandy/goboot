@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const GormLoggerCallerSkip = 3
+const GormLoggerCallerSkip = 2
 
 type GormLogger struct {
 	ZapLogger     *zap.Logger
@@ -62,10 +62,10 @@ func (g GormLogger) Trace(ctx context.Context, begin time.Time, fc func() (strin
 		g.ZapLogger.Error("SqlErrorLog", allFields...)
 	case g.slowThreshold != 0 && elapsed > g.slowThreshold:
 		allFields := addTraceFields(ctx, fields...)
-		g.ZapLogger.Error("SqlSlowLog", allFields...)
+		g.ZapLogger.Warn("SqlSlowLog", allFields...)
 	default:
 		allFields := addTraceFields(ctx, fields...)
-		g.ZapLogger.Error("SqlInfoLog", allFields...)
+		g.ZapLogger.Info("SqlInfoLog", allFields...)
 	}
 }
 

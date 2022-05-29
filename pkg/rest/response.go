@@ -3,7 +3,7 @@ package rest
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"goboot/pkg/err"
+	"goboot/pkg/baseerr"
 	"net/http"
 )
 
@@ -31,8 +31,8 @@ func (r *Response) Success(c *gin.Context, data interface{}) {
 	}
 
 	c.JSON(http.StatusOK, &Response{
-		Code:    err.Success.Code(),
-		Message: err.Success.Msg(),
+		Code:    baseerr.Success.Code(),
+		Message: baseerr.Success.Msg(),
 		Data:    data,
 		Details: []string{},
 		TraceID: getTraceId(c.Request.Context()),
@@ -41,7 +41,7 @@ func (r *Response) Success(c *gin.Context, data interface{}) {
 
 func (r *Response) Error(c *gin.Context, error error) {
 	if error != nil {
-		if v, ok := error.(*err.Error); ok {
+		if v, ok := error.(*baseerr.Error); ok {
 			response := &Response{
 				Code:    v.Code(),
 				Message: v.Msg(),
@@ -60,8 +60,8 @@ func (r *Response) Error(c *gin.Context, error error) {
 	}
 
 	c.JSON(http.StatusOK, &Response{
-		Code:    err.Success.Code(),
-		Message: err.Success.Msg(),
+		Code:    baseerr.Success.Code(),
+		Message: baseerr.Success.Msg(),
 		Data:    gin.H{},
 		TraceID: getTraceId(c.Request.Context()),
 	})
