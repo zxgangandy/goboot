@@ -34,7 +34,7 @@ func GetStudent(c *gin.Context) {
 		return
 	}
 
-	logger.Infof(ctx, "student=%v", result)
+	logger.Debugf(ctx, "student=%v", result)
 
 	rest.R.Success(c, result)
 }

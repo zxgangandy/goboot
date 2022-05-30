@@ -13,12 +13,13 @@ import (
 )
 
 func Router(profile string, logging *logger.Config) *gin.Engine {
-	var r = gin.New()
-
 	if profile == utils.ProdProfile {
 		gin.SetMode(gin.ReleaseMode)
 		gin.DisableConsoleColor()
-	} else {
+	}
+
+	var r = gin.New()
+	if profile != utils.ProdProfile {
 		pprof.Register(r)
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}

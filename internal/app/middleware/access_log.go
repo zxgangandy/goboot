@@ -40,11 +40,13 @@ func AccessLogger(config *logger.Config) gin.HandlerFunc {
 			request = utils.MaskJsonStr(&request, config.SkipFields)
 		}
 
+		header := utils.MaskHttpHeader(c.Request.Header, []string{"Authentication"})
+
 		logger.Info(ctx, "AccessLog",
 			zap.String("Method", c.Request.Method),
 			zap.String("IP", c.ClientIP()),
 			zap.String("Path", path),
-			zap.Any("Header", c.Request.Header),
+			zap.Any("Header", header),
 			zap.String("Query", c.Request.URL.RawQuery),
 			zap.String("UserAgent", c.Request.UserAgent()),
 			zap.String("Request", request),

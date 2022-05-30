@@ -115,3 +115,15 @@ func MaskField(jm map[string]interface{}, field string) {
 		}
 	}
 }
+
+func MaskHttpHeader(jm map[string][]string, fieldNames []string) map[string][]string {
+	for _, key := range fieldNames {
+		for k, _ := range jm {
+			if k == key || strings.Contains(k, key) {
+				jm[k][0] = "***"
+			}
+		}
+	}
+
+	return jm
+}
