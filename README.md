@@ -15,9 +15,17 @@ Inspired by springboot framework, making it easy to create web application with 
 
 ### http response
 ```json
-{\"code\":0,\"message\":\"Success\",\"data\":{\"Id\":1,\"Name\":\"Ray\",\"Age\":6,\"Address\":\"123\",\"Modified\":\"2022-05-29T14:13:01+08:00\",\"Created\":\"2022-05-29T14:13:01+08:00\"},\"details\":[],\"traceId\":\"n82gede29h\"}
+{
+    "code":0,
+    "message":"Success",
+    "data":{
+        "Id":1,"Name":"Ray","Age":6,"Address":"123","Modified":"2022-05-29T14:13:01+08:00","Created":"2022-05-29T14:13:01+08:00"
+    },
+    "details\":[],
+    "traceId":"n82gede29h"
+}
 ```
-- Use the 'TraceId' in the rest api response, you can quickly find the root cause from the default.log or error.log 
+- Use the 'traceId' in the rest api response, you can quickly find the root cause from the default.log or error.log 
 - You just need to do: grep 'n82gede29h' default.log
 
 ### all tracing log 
