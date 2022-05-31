@@ -25,8 +25,8 @@ Inspired by springboot framework, making it easy to create web application with 
     "traceId":"n82gede29h"
 }
 ```
-- Use the 'traceId' in the rest api response, you can quickly find the root cause from the default.log or error.log 
-- You just need to do: grep 'n82gede29h' default.log
+- Use the value of 'traceId' in the rest api response, you can quickly find the root cause from the default.log or error.log 
+- You just need to do: grep 'n82gede29h' default.log (errro.log)
 
 ### all tracing log 
 ```json
