@@ -37,5 +37,6 @@ Inspired by springboot framework, making it easy to create web application with 
 {"level":"info","ts":"2022-05-29T23:30:56.114+0800","caller":"middleware/response_log.go:51","msg":"ResponseLog","Status":200,"Path":"/v1/student/get_one","Response":"{\"code\":0,\"message\":\"Success\",\"data\":{\"Id\":1,\"Name\":\"Ray\",\"Age\":6,\"Address\":\"123\",\"Modified\":\"2022-05-29T14:13:01+08:00\",\"Created\":\"2022-05-29T14:13:01+08:00\"},\"details\":[],\"traceId\":\"n82gede29h\"}","Cost":0.010137309,"TraceID":"n82gede29h"}
 
 ```
-- One request with one trace path（access_log=>student_controller=>student_service=>student_dao=>response_log）
+- One request with one trace path: 
+  access_log=>student_controller=>student_service=>student_dao=>response_log
 - You can see the all sql log with the 'TraceID', it will help to trace the database operation
