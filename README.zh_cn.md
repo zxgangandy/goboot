@@ -12,7 +12,7 @@
 
 ## 使用
 
-### http response
+### http返回值
 ```json
 {
     "code":0,
@@ -20,9 +20,9 @@
     "data":{
         "Id":1,"Name":"Ray","Age":6,"Address":"123","Modified":"2022-05-29T14:13:01+08:00","Created":"2022-05-29T14:13:01+08:00"
     },
-    "details\":[],
+    "details":[],
     "traceId":"n82gede29h"
 }
 ```
-- 使用api返回值中的'traceId', 你能快速在default.log或者是error.log文件中定位问题
+- 使用api返回值中的'traceId'（"n82gede29h"）, 你能快速在default.log或者是error.log文件中定位问题
 - 你只需要执行：grep 'n82gede29h' default.log (errro.log)
