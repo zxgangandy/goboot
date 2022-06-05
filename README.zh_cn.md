@@ -35,6 +35,6 @@
 {"level":"debug","ts":"2022-05-29T23:30:56.114+0800","caller":"controller/student_controller.go:37","msg":"student=&{1 Ray 6 123 2022-05-29 14:13:01 +0800 CST 2022-05-29 14:13:01 +0800 CST}","TraceID":"n82gede29h"}
 {"level":"info","ts":"2022-05-29T23:30:56.114+0800","caller":"middleware/response_log.go:51","msg":"ResponseLog","Status":200,"Path":"/v1/student/get_one","Response":"{\"code\":0,\"message\":\"Success\",\"data\":{\"Id\":1,\"Name\":\"Ray\",\"Age\":6,\"Address\":\"123\",\"Modified\":\"2022-05-29T14:13:01+08:00\",\"Created\":\"2022-05-29T14:13:01+08:00\"},\"details\":[],\"traceId\":\"n82gede29h\"}","Cost":0.010137309,"TraceID":"n82gede29h"}
 ```
-- One request has one trace path:
+- 每一个请求都有一个trace链路:
   access_log=>student_controller=>student_service=>student_dao=>response_log
-- You can also see all sql log with the 'TraceID', which will help to trace the database operation
+- 所有的sql都用'TraceID'关联起来, 这样有助于跟踪每个请求的sql执行
