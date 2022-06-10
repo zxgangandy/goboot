@@ -24,10 +24,11 @@
     "traceId":"n82gede29h"
 }
 ```
+- 在每个用户的http返回值中，都返回了traceId
 - 使用api返回值中的'traceId'（"n82gede29h"）, 你能快速在default.log或者是error.log文件中定位问题
 - 你只需要执行：grep 'n82gede29h' default.log (errro.log)
 
-### all tracing log
+### 全链路日志
 ```json
 {"level":"info","ts":"2022-05-29T23:30:56.104+0800","caller":"middleware/access_log.go:43","msg":"AccessLog","Method":"POST","IP":"127.0.0.1","Path":"/v1/student/get_one","Header":{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["22"],"Content-Type":["application/json"],"Postman-Token":["ded26fff-52e5-4fca-8d62-534bbd8c2a21"],"User-Agent":["PostmanRuntime/7.29.0"]},"Query":"","UserAgent":"PostmanRuntime/7.29.0","Request":"{\n    \"studentId\": 1\n}","TraceID":"n82gede29h"}
 {"level":"info","ts":"2022-05-29T23:30:56.114+0800","caller":"dao/student_dao.go:21","msg":"SqlInfoLog","elapsed":0.009854539,"rows":1,"sql":"SELECT * FROM `student` WHERE id =1 ","TraceID":"n82gede29h"}
