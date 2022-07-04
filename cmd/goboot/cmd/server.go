@@ -26,11 +26,17 @@ var serverCmd = &cobra.Command{
 		profile := config.GetString("application.profile")
 
 		var logging logger.Config
-		config.UnmarshalKey("logging", &logging)
+		loggingErr := config.UnmarshalKey("logging", &logging)
+		if loggingErr != nil {
+			panic("loading logging configuration error!!!")
+		}
 		logger.Init(profile, &logging)
 
 		var mysqlConf database.DatasourceConfig
-		config.UnmarshalKey("mysql", &mysqlConf)
+		databaseErr := config.UnmarshalKey("mysql", &mysqlConf)
+		if databaseErr != nil {
+			panic("loading logging configuration error!!!")
+		}
 		database.Init(&mysqlConf)
 
 		host := config.GetString("server.host")
