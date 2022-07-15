@@ -7,6 +7,7 @@
 - 简单易用
 - 高性能（尽量避免使用反射）
 - 请求日志 (详见access_log.go) 和请求返回日志 (详见response_log.go)
+- 请求日志、请求返回日志可以通过配置的路径来进行跳过
 - 通过trace id在controller, service 和dao层跟踪每个请求和相应
 - 日志分级保存到default.log 文件和error.log文件
 - 日志脱敏
