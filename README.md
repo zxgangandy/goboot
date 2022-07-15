@@ -7,6 +7,7 @@ Inspired by springboot framework, making it easy to create web application with 
 ## Features
 - simple, easy to use
 - high performance（try to not use reflection）
+- request log (in access_log.go) and response log (in response_log.go)
 - trace every http request and response in controller, service and dao by trace id
 - log files classified to default.log and error.log
 - log desensitization
