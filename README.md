@@ -30,6 +30,17 @@ Inspired by springboot framework, making it easy to create web application with 
 - Use the value of 'traceId'（"n82gede29h"） in the rest api response, you can quickly find the root cause from the default.log or error.log 
 - You just need to do: grep 'n82gede29h' default.log (errro.log)
 
+### http request log 
+```json
+{"level":"info","ts":"2022-05-29T23:30:56.104+0800","caller":"middleware/access_log.go:43","msg":"AccessLog","Method":"POST","IP":"127.0.0.1","Path":"/v1/student/get_one","Header":{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["22"],"Content-Type":["application/json"],"Postman-Token":["ded26fff-52e5-4fca-8d62-534bbd8c2a21"],"User-Agent":["PostmanRuntime/7.29.0"]},"Query":"","UserAgent":"PostmanRuntime/7.29.0","Request":"{\n    \"studentId\": 1\n}","TraceID":"n82gede29h"}
+```
+
+### http response log
+```json
+{"level":"info","ts":"2022-05-29T23:30:56.114+0800","caller":"middleware/response_log.go:51","msg":"ResponseLog","Status":200,"Path":"/v1/student/get_one","Response":"{\"code\":0,\"message\":\"Success\",\"data\":{\"Id\":1,\"Name\":\"Ray\",\"Age\":6,\"Address\":\"123\",\"Modified\":\"2022-05-29T14:13:01+08:00\",\"Created\":\"2022-05-29T14:13:01+08:00\"},\"details\":[],\"traceId\":\"n82gede29h\"}","Cost":0.010137309,"TraceID":"n82gede29h"}
+
+```
+
 ### all tracing log 
 ```json
 {"level":"info","ts":"2022-05-29T23:30:56.104+0800","caller":"middleware/access_log.go:43","msg":"AccessLog","Method":"POST","IP":"127.0.0.1","Path":"/v1/student/get_one","Header":{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["22"],"Content-Type":["application/json"],"Postman-Token":["ded26fff-52e5-4fca-8d62-534bbd8c2a21"],"User-Agent":["PostmanRuntime/7.29.0"]},"Query":"","UserAgent":"PostmanRuntime/7.29.0","Request":"{\n    \"studentId\": 1\n}","TraceID":"n82gede29h"}
