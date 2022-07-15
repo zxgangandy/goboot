@@ -6,7 +6,7 @@ server:
 
 application:
   name: goboot
-  profile: prod
+  profile: dev
 
 swagger:
   enabled: true

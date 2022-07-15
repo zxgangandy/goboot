@@ -11,7 +11,10 @@ import (
 	"strings"
 )
 
-const traceLen = 10
+const (
+	traceKey = "TraceID"
+	traceLen = 10
+)
 
 func AccessLogger(config *logger.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -25,7 +28,14 @@ func AccessLogger(config *logger.Config) gin.HandlerFunc {
 			}
 		}
 
-		traceId := utils.RandomString(traceLen)
+		var traceId string
+		headerTraceId := c.Request.Header.Get(traceKey)
+		if headerTraceId == "" {
+			traceId = utils.RandomString(traceLen)
+		} else {
+			traceId = headerTraceId
+		}
+
 		ctx := logger.WithTrace(c.Request.Context(), strings.ToLower(traceId))
 		c.Request = c.Request.WithContext(ctx)
 
