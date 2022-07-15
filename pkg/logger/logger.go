@@ -4,11 +4,8 @@ import (
 	"context"
 	"fmt"
 	"go.uber.org/zap"
+	"goboot/pkg/utils"
 	"sync"
-)
-
-const (
-	traceKey = "TraceID"
 )
 
 var (
@@ -102,17 +99,17 @@ func Fatalf(c context.Context, format string, args ...interface{}) {
 }
 
 func WithTrace(c context.Context, traceID string) context.Context {
-	return context.WithValue(c, traceKey, traceID)
+	return context.WithValue(c, utils.TraceKey, traceID)
 }
 
 func addTraceFields(c context.Context, fields ...zap.Field) []zap.Field {
-	if v := c.Value(traceKey); v != nil {
+	if v := c.Value(utils.TraceKey); v != nil {
 		if t, ok := v.(string); ok {
 			var allFields []zap.Field
 			if fields != nil {
-				allFields = append(fields, zap.String(traceKey, t))
+				allFields = append(fields, zap.String(utils.TraceKey, t))
 			} else {
-				allFields = append(allFields, zap.String(traceKey, t))
+				allFields = append(allFields, zap.String(utils.TraceKey, t))
 			}
 
 			return allFields

@@ -11,11 +11,6 @@ import (
 	"strings"
 )
 
-const (
-	traceKey = "TraceID"
-	traceLen = 10
-)
-
 func AccessLogger(config *logger.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.Path
@@ -29,9 +24,9 @@ func AccessLogger(config *logger.Config) gin.HandlerFunc {
 		}
 
 		var traceId string
-		headerTraceId := c.Request.Header.Get(traceKey)
+		headerTraceId := c.Request.Header.Get(utils.TraceKey)
 		if headerTraceId == "" {
-			traceId = utils.RandomString(traceLen)
+			traceId = utils.RandomString(utils.TraceLen)
 		} else {
 			traceId = headerTraceId
 		}

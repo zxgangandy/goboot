@@ -33,7 +33,7 @@ func RandomString(n int) string {
 	return *(*string)(unsafe.Pointer(&buf))
 }
 
-// Convert json string to map
+// JsonToMap Convert json string to map
 func JsonToMap(jsonStr *string) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	err := json.Unmarshal([]byte(*jsonStr), &m)
@@ -44,7 +44,7 @@ func JsonToMap(jsonStr *string) (map[string]interface{}, error) {
 	return m, nil
 }
 
-// Convert map json string
+// MapToJson Convert map json string
 func MapToJson(m *map[string]interface{}) (string, error) {
 	jsonByte, err := json.Marshal(m)
 	if err != nil {
@@ -76,7 +76,7 @@ func MaskJsonStr(jsonStr *string, fieldNames []string) string {
 	return maskedJson
 }
 
-// mask struct object then return string
+// MaskStruct mask struct object then return string
 func MaskStruct(src interface{}, fieldNames []string) string {
 	jsonBytes, err := json.Marshal(src)
 	if err != nil {

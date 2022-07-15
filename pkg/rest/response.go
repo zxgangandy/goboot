@@ -4,11 +4,8 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"goboot/pkg/baseerr"
+	"goboot/pkg/utils"
 	"net/http"
-)
-
-const (
-	traceKey = "TraceID"
 )
 
 var R = NewResponse()
@@ -70,7 +67,7 @@ func (r *Response) Error(c *gin.Context, error error) {
 func getTraceId(c context.Context) string {
 	var traceID string
 
-	if v := c.Value(traceKey); v != nil {
+	if v := c.Value(utils.TraceKey); v != nil {
 		if t, ok := v.(string); ok {
 			traceID = t
 		}
